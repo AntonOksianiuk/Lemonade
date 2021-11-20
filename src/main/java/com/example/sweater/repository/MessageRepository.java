@@ -9,7 +9,3 @@ public interface MessageRepository extends CrudRepository<Message, Integer> {
 
     public List<Message> findByTag(String tag);
 }
-
-interface MyUselessInterface{
-
-}
