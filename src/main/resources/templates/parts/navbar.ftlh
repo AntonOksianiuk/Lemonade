@@ -1,3 +1,6 @@
+<#include  "security.ftlh">
+<#import "login.ftlh" as l>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Sweater</a>
@@ -15,10 +18,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/main">Messages</a>
                 </li>
+                <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/user">User list</a>
                 </li>
+                </#if>
             </ul>
+
+            <div class="navbar-text me-5">${name}</div>
+            <@l.logout />
         </div>
 
     </div>
