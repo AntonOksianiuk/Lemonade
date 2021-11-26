@@ -23,10 +23,16 @@
                     <a class="nav-link" href="/user">User list</a>
                 </li>
                 </#if>
+                <!-- привести user к булевому типу-->
+                <#if user??>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/profile">Profile</a>
+                    </li>
+                </#if>
             </ul>
 
             <div class="navbar-text me-5">${name}</div>
-            <@l.logout />
+            <#if name != "unknown"><@l.logout /></#if>
         </div>
 
     </div>

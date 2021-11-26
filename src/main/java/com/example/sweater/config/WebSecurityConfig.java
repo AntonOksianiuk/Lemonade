@@ -14,7 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
@@ -34,16 +36,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder(8);
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()        //switch on authorization
-                .antMatchers("/", "/registration", "/static/**").permitAll()   //allow full access for the address("/")
-                    .anyRequest().authenticated()       // for another address we require authorization
+                .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()   //allow full access for the address("/")
+                //URL помимо activate может содержать ещё 1 сегмент
+                .anyRequest().authenticated()       // for another address we require authorization
                 .and()
                     .formLogin()       //switch on login.ftlh form
                     .loginPage("/login")//.defaultSuccessUrl("/main", true)       //login.ftlh path is located on this mapping
                     .permitAll()        //allow all the people use it
+                .and()
+                    .rememberMe()
+                //Означает что если сессия в сервлет контейнере протухла,
+                //спринг всё равно будет искать по вашим идентификаторам найтроки и попытается
+                //авторизовать повторно
                 .and()
                     .logout()       //switch on logout
                     .permitAll();
@@ -54,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(passwordEncoder);
     }
 
 
