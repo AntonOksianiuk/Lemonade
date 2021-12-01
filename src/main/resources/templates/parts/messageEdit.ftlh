@@ -15,7 +15,7 @@
                     ${textError}
                 </div>
             </#if>
-            <br>
+            <br/>
             <!-- Нужно добавить класс is-invalid к поле, которое мы валидируем-->
             <!-- Если сообщение присутствует то мы помечаем поле как некорректное-->
             <input type="text" class="form-control ${(tagError??)?string('is-invalid','')}"
@@ -26,16 +26,16 @@
                 </div>
             </#if>
 
-            <br>
+            <br/>
             <div class="form-group">
-                <input type="file" class="form-control" name="file">
+                <input type="file" class="form-control" name="file"/>
             </div>
 
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <input type="hidden" name="id" value="<#if message??>${message.id}</#if>"/>
 
 
-            <br>
+            <br/>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save message</button>
 

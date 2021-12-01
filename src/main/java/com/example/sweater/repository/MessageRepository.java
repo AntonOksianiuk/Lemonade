@@ -10,7 +10,3 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
     public List<Message> findByTag(String tag);
 }
 
-//Буду добавлять комменатрии
-//Первый
-//Второй
-//Третийп

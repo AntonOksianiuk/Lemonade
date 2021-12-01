@@ -1,6 +1,6 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
-<h5>Hello quest</h5>
-    <div>This is a simple clone of twitter</div>
+<h5>Hello guest</h5>
+    <div>This is an application with the implementation of social networks</div>
 </@c.page>
